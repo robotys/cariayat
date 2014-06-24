@@ -1,0 +1,79 @@
+<!Doctype html>
+<html>
+<head>
+	<title>CariAyat</title>
+	<link rel="stylesheet" href="assets/style.css" type="text/css"/>
+</head>
+<body>
+<div class="wrap">
+	<h1>Cari Ayat</h1>
+	<hr/>
+
+	<div id="response"></div>
+	<input type="text" id="keyword"/><input type="submit" id="go">
+
+	
+	<div class="result"></div>
+</div>
+</body>
+</html>
+
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+
+<script>
+	$(document).ready(function(){
+		var index;
+
+			var response = '';
+		$('#go').attr('disabled', 'disabled');
+
+		//load index, bila dah success baru enable submission
+		$.get('./assets/json.txt', function(data){
+			index = JSON.parse(data);
+
+			$('#go').prop('disabled', false);
+
+
+			// capture event
+			$('#go').on('click', function(){
+				search_and_display();
+			});
+
+			$('#keyword').on('keyup', function(e){
+				if(e.keyCode == 13){
+					search_and_display();
+				}
+			});
+
+
+		});
+
+
+		////// FUNCTIONS ///////
+
+		function search_and_display(){
+			$('#response').html('');
+
+			// capture text
+			var keyword = $('#keyword').val();
+
+			if(keyword != ''){ // kalau ada keyword baru carik
+				// carik kat sinih
+				console.log(index);
+
+			}else{
+				response = '<p class="error">isikan perkataan yang mahu dicari:</p>';
+			}
+
+			shout();
+		}
+
+
+		function shout(){
+
+			if(response != ''){
+				$('#response').html(response);
+			}
+		}
+	});
+</script>
