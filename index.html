@@ -59,7 +59,16 @@
 
 			if(keyword != ''){ // kalau ada keyword baru carik
 				// carik kat sinih
-				console.log(index);
+				if(index[keyword] != undefined){ // kalau ada
+					$.each(index[keyword], function(index, location){
+						// var src = 'http://placequran.com/'+location.replace(':','/')+'/ms,en';
+						var src = 'http://placequran.com/'+location.replace(':','/');
+						console.log(src);
+						$('.result').append('<img src="'+src+'" width="300px"/>');
+					});
+				}else{
+					response = '<p>Perkataan tersebut tiada dalam Al Quran.</p>'
+				}
 
 			}else{
 				response = '<p class="error">isikan perkataan yang mahu dicari:</p>';
