@@ -21,6 +21,55 @@ class Welcome extends CI_Controller {
 	{
 		$this->load->view('welcome_message');
 	}
+
+	public function generate(){
+		$query = $this->db->get('quran_bm');
+
+		foreach($query->result_array() as $row){
+			// var_dump($row);
+			$location = $row['SuraID'].':'.$row['VerseID'];
+			$ayat = $row['AyahText'];
+			$texts = explode(' ', $ayat);
+
+			foreach($texts as $word){
+				$word = strtolower(preg_replace("/[^A-Za-z0-9-?!]/",'',$word));
+
+				$index[$word][] = $location;
+			}
+
+			// var_dump($ayat.' - '.$location);
+		}
+
+		$query = $this->db->get('quran_bi');
+
+		foreach($query->result_array() as $row){
+			// var_dump($row);
+			$location = $row['SuraID'].':'.$row['VerseID'];
+			$ayat = $row['AyahText'];
+			$texts = explode(' ', $ayat);
+
+			foreach($texts as $word){
+				$word = strtolower(preg_replace("/[^A-Za-z0-9-?!]/",'',$word));
+
+				$index[$word][] = $location;
+			}
+
+			// var_dump($ayat.' - '.$location);
+		}
+
+		// $this->dumper($index);
+
+		$json = json_encode($index);
+		file_put_contents('./assets/json.txt', $json);
+
+		echo 'Done';
+	}
+
+	function dumper($multi){
+		echo '<pre>';
+		var_dump($multi);
+		echo '</pre>';
+	}
 }
 
 /* End of file welcome.php */
