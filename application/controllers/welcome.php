@@ -27,7 +27,7 @@ class Welcome extends CI_Controller {
 
 		foreach($query->result_array() as $row){
 			// var_dump($row);
-			$location = $row['SuraID'].':'.$row['VerseID'];
+			$location = $row['SuraID'].'/'.$row['VerseID'];
 			$ayat = $row['AyahText'];
 			$texts = explode(' ', $ayat);
 
@@ -44,7 +44,7 @@ class Welcome extends CI_Controller {
 
 		foreach($query->result_array() as $row){
 			// var_dump($row);
-			$location = $row['SuraID'].':'.$row['VerseID'];
+			$location = $row['SuraID'].'/'.$row['VerseID'];
 			$ayat = $row['AyahText'];
 			$texts = explode(' ', $ayat);
 
